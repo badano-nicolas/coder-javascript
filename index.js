@@ -1,9 +1,50 @@
 const canvas = document.querySelector('canvas');
-
 const canvasContext = canvas.getContext('2d');
 
 canvas.width = 1024;
 canvas.height = 576;
+
+const collisionsMap = [];
+
+// Parse collision in rows of 70 columns
+for (let i = 0; i < collisions.length; i += 70) {
+    collisionsMap.push(collisions.slice(i, 70 + i));
+}
+
+class Boundary {
+    static width = 48;
+    static height = 48;
+    constructor({ position }) {
+        this.position = position;
+        this.width = 48;
+        this.height = 48;
+    }
+
+    draw() {
+        canvasContext.fillStyle = 'red';
+        canvasContext.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+const boudaries = [];
+
+const offset = {
+    x: -570,
+    y: -165
+}
+
+collisionsMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        if (symbol === 1025) {
+            boudaries.push(new Boundary({
+                position: {
+                    x: j * Boundary.width + offset.x,
+                    y: i * Boundary.height + offset.y
+                }
+            }))
+        }
+    })
+})
 
 canvasContext.fillStyle = 'white';
 canvasContext.fillRect(0, 0, canvas.width, canvas.height);
@@ -25,10 +66,11 @@ class Sprite {
     }
 }
 
+
 const background = new Sprite({
     position: {
-        x: -570,
-        y: -165
+        x: offset.x,
+        y: offset.y
     },
     image: mapImage
 })
@@ -51,6 +93,9 @@ const keys = {
 function animate() {
     window.requestAnimationFrame(animate);
     background.draw();
+    boudaries.forEach(boundary => {
+        boundary.draw();
+    });
     canvasContext.drawImage(playerImage,
         0,
         0,
