@@ -62,36 +62,42 @@ function animate() {
         playerImage.height
     )
 
-    if (keys.w.pressed) {
-        background.position.y = background.position.y + 3;
+    if (keys.w.pressed && lastKey === 'w') {
+        background.position.y += 3;
     }
-    if (keys.a.pressed) {
-        background.position.x = background.position.x + 3;
+    else if (keys.a.pressed && lastKey === 'a') {
+        background.position.x += 3;
     }
-    if (keys.s.pressed) {
-        background.position.y = background.position.y - 3;
+    else if (keys.s.pressed && lastKey === 's') {
+        background.position.y -= 3;
     }
-    if (keys.d.pressed) {
-        background.position.x = background.position.x - 3;
+    else if (keys.d.pressed && lastKey === 'd') {
+        background.position.x -= 3;
     }
 }
 
 animate();
 
+let lastKey = '';
+
 const detectKey = (event, pressed) => {
     const key = event.key;
     switch (key) {
-        case "w":
+        case 'w':
             keys.w.pressed = pressed;
+            lastKey = 'w';
             break;
-        case "a":
+        case 'a':
             keys.a.pressed = pressed;
+            lastKey = 'a';
             break;
-        case "s":
+        case 's':
             keys.s.pressed = pressed;
+            lastKey = 's';
             break;
-        case "d":
+        case 'd':
             keys.d.pressed = pressed;
+            lastKey = 'd';
             break;
         default:
             break;
