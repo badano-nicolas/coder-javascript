@@ -14,8 +14,32 @@ mapImage.src = './assets/img/towns/town-0.png';
 const playerImage = new Image();
 playerImage.src = './assets/img/chars/main/down.png'
 
-mapImage.onload = () => {
-    canvasContext.drawImage(mapImage, -570, -165);
+class Sprite {
+    constructor({ position, velocity, image }) {
+        this.position = position;
+        this.image = image;
+    }
+
+    draw() {
+        canvasContext.drawImage(this.image, this.position.x, this.position.y);
+    }
+}
+
+const background = new Sprite({
+    position: {
+        x: -570,
+        y: -165
+    },
+    image: mapImage
+})
+
+const keys = {
+    
+}
+
+function animate() {
+    window.requestAnimationFrame(animate);
+    background.draw();
     canvasContext.drawImage(playerImage,
         0,
         0,
@@ -26,7 +50,10 @@ mapImage.onload = () => {
         playerImage.width / 4,
         playerImage.height
     )
+    console.log("animate")
 }
+
+animate();
 
 window.addEventListener('keydown', (e) => {
     detectKeyDown(e);
