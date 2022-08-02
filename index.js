@@ -34,7 +34,18 @@ const background = new Sprite({
 })
 
 const keys = {
-    
+    w: {
+        pressed: false
+    },
+    a: {
+        pressed: false
+    },
+    s: {
+        pressed: false
+    },
+    d: {
+        pressed: false
+    }
 }
 
 function animate() {
@@ -50,31 +61,48 @@ function animate() {
         playerImage.width / 4,
         playerImage.height
     )
-    console.log("animate")
+
+    if (keys.w.pressed) {
+        background.position.y = background.position.y + 3;
+    }
+    if (keys.a.pressed) {
+        background.position.x = background.position.x + 3;
+    }
+    if (keys.s.pressed) {
+        background.position.y = background.position.y - 3;
+    }
+    if (keys.d.pressed) {
+        background.position.x = background.position.x - 3;
+    }
 }
 
 animate();
 
-window.addEventListener('keydown', (e) => {
-    detectKeyDown(e);
-})
-
-const detectKeyDown = (event) => {
+const detectKey = (event, pressed) => {
     const key = event.key;
     switch (key) {
         case "w":
-            console.log("pressed w");
-            break;
-        case "s":
-            console.log("pressed s");
-            break;
-        case "d":
-            console.log("pressed d");
+            keys.w.pressed = pressed;
             break;
         case "a":
-            console.log("pressed a");
+            keys.a.pressed = pressed;
+            break;
+        case "s":
+            keys.s.pressed = pressed;
+            break;
+        case "d":
+            keys.d.pressed = pressed;
             break;
         default:
             break;
     }
 };
+
+window.addEventListener('keydown', (e) => {
+    detectKey(e, true);
+});
+
+window.addEventListener('keyup', (e) => {
+    detectKey(e, false);
+});
+
