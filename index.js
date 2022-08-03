@@ -90,12 +90,21 @@ const keys = {
     }
 }
 
+const testBoundary = new Boundary({
+    position: {
+        x: 400,
+        y: 400
+    }
+});
+
 function animate() {
     window.requestAnimationFrame(animate);
     background.draw();
+
     boudaries.forEach(boundary => {
         boundary.draw();
     });
+    //testBoundary.draw();
     canvasContext.drawImage(playerImage,
         0,
         0,
