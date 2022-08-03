@@ -138,7 +138,11 @@ function animate() {
     testBoundary.draw();
     player.draw();
 
-    if (player.position.x + player.width >= testBoundary.position.x) {
+    if (player.position.x + player.width >= testBoundary.position.x &&
+        player.position.y + player.height >= testBoundary.position.y &&
+        player.position.x <= testBoundary.position.x + testBoundary.width &&
+        player.position.y <= testBoundary.position.y + testBoundary.height
+    ) {
         console.log('colliding')
 
     }
