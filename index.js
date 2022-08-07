@@ -151,12 +151,35 @@ function animate() {
 
     player.draw();
 
- 
 
+
+    let moving = true;
     if (keys.w.pressed && lastKey === 'w') {
-        movables.forEach(movable => {
-            movable.position.y += 3;
-        });
+        for (let i = 0; i < boudaries.length; i++) {
+            const boundary = boudaries[i];
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    // creates clone of boundary without changing originall obj
+                    rectabgle2: {
+                        ...boundary, position: {
+                            x: boundary.position.x,
+                            y: boundary.position.y + 3
+                        }
+                    }
+                })
+            ) {
+                moving = false;
+                break;
+            }
+        }
+
+        if (moving) {
+            movables.forEach(movable => {
+                movable.position.y += 3;
+            });
+        }
+
     }
     else if (keys.a.pressed && lastKey === 'a') {
         movables.forEach(movable => {
