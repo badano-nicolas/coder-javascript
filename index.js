@@ -35,6 +35,7 @@ const offset = {
 
 collisionsMap.forEach((row, i) => {
     row.forEach((symbol, j) => {
+        // 1025 is the value when there is a boundary
         if (symbol === 1025) {
             boudaries.push(new Boundary({
                 position: {
@@ -127,8 +128,18 @@ const testBoundary = new Boundary({
 });
 
 
+
 // Creted this variable to simplify later
 const movables = [background, testBoundary]
+
+function rectangularCOllision({ rectangle1, rectabgle2 }) {
+    return (
+        rectangle1.position.x + rectangle1.width >= rectabgle2.position.x &&
+        rectangle1.position.y + rectangle1.height >= rectabgle2.position.y &&
+        rectangle1.position.x <= rectabgle2.position.x + rectabgle2.width &&
+        rectangle1.position.y <= rectabgle2.position.y + rectabgle2.height
+    )
+};
 
 function animate() {
     window.requestAnimationFrame(animate);
@@ -138,13 +149,13 @@ function animate() {
     testBoundary.draw();
     player.draw();
 
-    if (player.position.x + player.width >= testBoundary.position.x &&
-        player.position.y + player.height >= testBoundary.position.y &&
-        player.position.x <= testBoundary.position.x + testBoundary.width &&
-        player.position.y <= testBoundary.position.y + testBoundary.height
+    if (
+        rectangularCOllision({
+            rectangle1: player,
+            rectabgle2: testBoundary
+        })
     ) {
         console.log('colliding')
-
     }
 
     if (keys.w.pressed && lastKey === 'w') {
