@@ -120,19 +120,10 @@ const keys = {
     }
 }
 
-const testBoundary = new Boundary({
-    position: {
-        x: 400,
-        y: 400
-    }
-});
+// Creted this variable to simplify later, used spread to use a single array
+const movables = [background, ...boudaries]
 
-
-
-// Creted this variable to simplify later
-const movables = [background, testBoundary]
-
-function rectangularCOllision({ rectangle1, rectabgle2 }) {
+function rectangularCollision({ rectangle1, rectabgle2 }) {
     return (
         rectangle1.position.x + rectangle1.width >= rectabgle2.position.x &&
         rectangle1.position.y + rectangle1.height >= rectabgle2.position.y &&
@@ -145,18 +136,22 @@ function animate() {
     window.requestAnimationFrame(animate);
 
     background.draw();
+    boudaries.forEach((boundary) => {
+        boundary.draw();
 
-    testBoundary.draw();
+        if (
+            rectangularCollision({
+                rectangle1: player,
+                rectabgle2: boundary
+            })
+        ) {
+            console.log('colliding')
+        }
+    });
+
     player.draw();
 
-    if (
-        rectangularCOllision({
-            rectangle1: player,
-            rectabgle2: testBoundary
-        })
-    ) {
-        console.log('colliding')
-    }
+ 
 
     if (keys.w.pressed && lastKey === 'w') {
         movables.forEach(movable => {
