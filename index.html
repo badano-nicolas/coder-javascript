@@ -5,13 +5,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/sign-up.css">
     <title>Coder Javascript</title>
 </head>
 
 <body>
-    <canvas></canvas>
-    <script src="assets/data/collisions.js"></script>
-    <script src="index.js"></script>
+    <div class="container">
+        <form class="form" id="login">
+            <h1 class="form-title">Inicia Sesión</h1>
+            <div class="form-message form-message-error"></div>
+            <div class="form-input-container">
+                <input type="text" class="form-input" autofocus placeholder="Usuario / Email">
+                <div class="form-input-error-message"></div>
+            </div>
+            <div class="form-input-container">
+                <input type="password" class="form-input" autofocus placeholder="Contraseña">
+                <div class="form-input-error-message"></div>
+            </div>
+            <button class="form-button" type="submit">Continuar</button>
+            <p class="form-text">
+                <a href="#" class="form-link">Olvidaste tu contraseña?</a>
+            </p>
+            <p class="form-text">
+                <a class="form-link" href="./" id="linkCreateAccount">No tienes cuenta? Regístrate</a>
+            </p>
+        </form>
+        <form class="form form-hidden" id="createAccount">
+            <h1 class="form-title">Crear cuenta</h1>
+            <div class="form-message form-message-error"></div>
+            <div class="form-input-container">
+                <input type="text" id="signupUsername" class="form-input" autofocus placeholder="Usuario">
+                <div class="form-input-error-message"></div>
+            </div>
+            <div class="form-input-container">
+                <input type="text" class="form-input" autofocus placeholder="Email">
+                <div class="form-input-error-message"></div>
+            </div>
+            <div class="form-input-container">
+                <input type="password" class="form-input" autofocus placeholder="Contraseña">
+                <div class="form-input-error-message"></div>
+            </div>
+            <div class="form-input-container">
+                <input type="password" class="form-input" autofocus placeholder="Confirmar Contraseña">
+                <div class="form-input-error-message"></div>
+            </div>
+            <button class="form-button" type="submit">Continuar</button>
+            <p class="form-text">
+                <a class="form-link" href="./" id="linkLogin">Ya tienes cuenta? Inicia sesion</a>
+            </p>
+        </form>
+    </div>
+    <script src="./src/sign-up.js"></script>
 </body>
 
 </html>

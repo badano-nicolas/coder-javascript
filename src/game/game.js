@@ -123,12 +123,12 @@ const keys = {
 // Creted this variable to simplify later, used spread to use a single array
 const movables = [background, ...boudaries]
 
-function rectangularCollision({ rectangle1, rectabgle2 }) {
+function rectangularCollision({ rectangle1, rectangle2: rectangle2 }) {
     return (
-        rectangle1.position.x + rectangle1.width >= rectabgle2.position.x &&
-        rectangle1.position.y + rectangle1.height >= rectabgle2.position.y &&
-        rectangle1.position.x <= rectabgle2.position.x + rectabgle2.width &&
-        rectangle1.position.y <= rectabgle2.position.y + rectabgle2.height
+        rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+        rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
+        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+        rectangle1.position.y <= rectangle2.position.y + rectangle2.height
     )
 };
 
@@ -142,7 +142,7 @@ function animate() {
         if (
             rectangularCollision({
                 rectangle1: player,
-                rectabgle2: boundary
+                rectangle2: boundary
             })
         ) {
             console.log('colliding')
@@ -161,7 +161,7 @@ function animate() {
                 rectangularCollision({
                     rectangle1: player,
                     // creates clone of boundary without changing originall obj
-                    rectabgle2: {
+                    rectangle2: {
                         ...boundary, position: {
                             x: boundary.position.x,
                             y: boundary.position.y + 3
@@ -182,19 +182,86 @@ function animate() {
 
     }
     else if (keys.a.pressed && lastKey === 'a') {
-        movables.forEach(movable => {
-            movable.position.x += 3;
-        });
+        for (let i = 0; i < boudaries.length; i++) {
+            const boundary = boudaries[i];
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    // creates clone of boundary without changing originall obj
+                    rectangle2: {
+                        ...boundary, position: {
+                            x: boundary.position.x + 3,
+                            y: boundary.position.y
+                        }
+                    }
+                })
+            ) {
+                moving = false;
+                break;
+            }
+        }
+
+        if (moving) {
+            movables.forEach(movable => {
+                movable.position.x += 3;
+            });
+        }
+
     }
     else if (keys.s.pressed && lastKey === 's') {
-        movables.forEach(movable => {
-            movable.position.y -= 3;
-        });
+        for (let i = 0; i < boudaries.length; i++) {
+            const boundary = boudaries[i];
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    // creates clone of boundary without changing originall obj
+                    rectangle2: {
+                        ...boundary, position: {
+                            x: boundary.position.x,
+                            y: boundary.position.y - 3
+                        }
+                    }
+                })
+            ) {
+                console.log("player ", player);
+                console.log("bondary ", boundary)
+                //moving = false;
+                break;
+            }
+        }
+
+        if (moving) {
+            movables.forEach(movable => {
+                movable.position.y -= 3;
+            });
+        }
+
     }
     else if (keys.d.pressed && lastKey === 'd') {
-        movables.forEach(movable => {
-            movable.position.x -= 3;
-        });
+        for (let i = 0; i < boudaries.length; i++) {
+            const boundary = boudaries[i];
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    // creates clone of boundary without changing originall obj
+                    rectangle2: {
+                        ...boundary, position: {
+                            x: boundary.position.x - 3,
+                            y: boundary.position.y
+                        }
+                    }
+                })
+            ) {
+                moving = false;
+                break;
+            }
+        }
+
+        if (moving) {
+            movables.forEach(movable => {
+                movable.position.x -= 3;
+            });
+        }
     }
 }
 
