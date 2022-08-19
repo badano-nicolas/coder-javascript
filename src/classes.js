@@ -8,6 +8,7 @@ class Sprite {
             this.width = this.image.width / this.frames.max;
             this.height = this.image.height;
         };
+        this.moving = false;
 
     }
 
@@ -23,6 +24,10 @@ class Sprite {
             this.image.width / this.frames.max,
             this.image.height
         )
+
+
+        if (!this.moving) return
+
 
         if (this.frames.max > 1) {
             this.frames.elapsed++
