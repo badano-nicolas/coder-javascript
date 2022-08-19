@@ -21,7 +21,7 @@ class Boundary {
     }
 
     draw() {
-        canvasContext.fillStyle = 'red';
+        canvasContext.fillStyle = 'rgba(255, 0, 0, 0.0)';
         canvasContext.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
@@ -29,8 +29,8 @@ class Boundary {
 const boudaries = [];
 
 const offset = {
-    x: -570,
-    y: -165
+    x: -565,
+    y: -178
 }
 
 collisionsMap.forEach((row, i) => {
@@ -223,9 +223,7 @@ function animate() {
                     }
                 })
             ) {
-                console.log("player ", player);
-                console.log("bondary ", boundary)
-                //moving = false;
+                moving = false;
                 break;
             }
         }
