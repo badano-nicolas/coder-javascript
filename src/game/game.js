@@ -38,8 +38,17 @@ canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 const mapImage = new Image();
 mapImage.src = './assets/img/towns/town-0.png';
 
-const playerImage = new Image();
-playerImage.src = './assets/img/chars/main/down.png'
+const playerImageUp = new Image();
+playerImageUp.src = './assets/img/chars/main/up.png'
+
+const playerImageRight = new Image();
+playerImageRight.src = './assets/img/chars/main/right.png'
+
+const playerImageDown = new Image();
+playerImageDown.src = './assets/img/chars/main/down.png'
+
+const playerImageLeft = new Image();
+playerImageLeft.src = './assets/img/chars/main/left.png'
 
 const player = new Sprite({
     position: {
@@ -48,9 +57,15 @@ const player = new Sprite({
         // 68  is the height of the player image, can't wait to load the image to obtain
         y: canvas.height / 2 - 68 / 2
     },
-    image: playerImage,
+    image: playerImageDown,
     frames: {
         max: 4
+    },
+    sprites: {
+        up: playerImageUp,
+        right: playerImageRight,
+        down: playerImageDown,
+        left: playerImageLeft
     }
 })
 
@@ -112,10 +127,11 @@ function animate() {
 
     let moving = true;
     player.moving = false;
-    
+
     if (keys.w.pressed && lastKey === 'w') {
 
         player.moving = true;
+        player.image = player.sprites.up;
 
         for (let i = 0; i < boudaries.length; i++) {
             const boundary = boudaries[i];
@@ -143,8 +159,9 @@ function animate() {
         }
 
     }
-    else if (keys.a.pressed && lastKey === 'a') {
+    else if (keys.d.pressed && lastKey === 'd') {
         player.moving = true;
+        player.image = player.sprites.right;
         for (let i = 0; i < boudaries.length; i++) {
             const boundary = boudaries[i];
             if (
@@ -153,7 +170,7 @@ function animate() {
                     // creates clone of boundary without changing originall obj
                     rectangle2: {
                         ...boundary, position: {
-                            x: boundary.position.x + 3,
+                            x: boundary.position.x - 3,
                             y: boundary.position.y
                         }
                     }
@@ -166,13 +183,13 @@ function animate() {
 
         if (moving) {
             movables.forEach(movable => {
-                movable.position.x += 3;
+                movable.position.x -= 3;
             });
         }
-
     }
     else if (keys.s.pressed && lastKey === 's') {
         player.moving = true;
+        player.image = player.sprites.down;
         for (let i = 0; i < boudaries.length; i++) {
             const boundary = boudaries[i];
             if (
@@ -199,8 +216,9 @@ function animate() {
         }
 
     }
-    else if (keys.d.pressed && lastKey === 'd') {
+    else if (keys.a.pressed && lastKey === 'a') {
         player.moving = true;
+        player.image = player.sprites.left;
         for (let i = 0; i < boudaries.length; i++) {
             const boundary = boudaries[i];
             if (
@@ -209,7 +227,7 @@ function animate() {
                     // creates clone of boundary without changing originall obj
                     rectangle2: {
                         ...boundary, position: {
-                            x: boundary.position.x - 3,
+                            x: boundary.position.x + 3,
                             y: boundary.position.y
                         }
                     }
@@ -222,10 +240,13 @@ function animate() {
 
         if (moving) {
             movables.forEach(movable => {
-                movable.position.x -= 3;
+                movable.position.x += 3;
             });
         }
+
     }
+
+
 }
 
 animate();
