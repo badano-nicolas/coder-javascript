@@ -1,3 +1,17 @@
+const loginForm = document.querySelector("#login");
+const createAccountForm = document.querySelector("#createAccount");
+
+const linkCreateAccount = document.querySelector("#linkCreateAccount");
+const linkLogin = document.querySelector("#linkLogin");
+
+const loginUsername = document.getElementById("loginUsername");
+const loginPassword = document.getElementById("loginPassword");
+
+const signupUsername = document.getElementById("signupUsername");
+const signupEmail = document.getElementById("signupEmail");
+const signupPassword = document.getElementById("signupPassword");
+const signupCheckPassword = document.getElementById("signupCheckPassword");
+
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form-message");
     messageElement.textContent = message;
@@ -16,38 +30,52 @@ function clearInputError(inputElement) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector("#login");
-    const createAccountForm = document.querySelector("#createAccount");
 
-    document.querySelector("#linkCreateAccount").addEventListener("click", e => {
+    linkCreateAccount.addEventListener("click", e => {
         e.preventDefault();
         loginForm.classList.add("form-hidden");
-        // save new user data and naviagete to home
         createAccountForm.classList.remove("form-hidden");
     });
 
-    document.querySelector("#linkLogin").addEventListener("click", e => {
+    linkLogin.addEventListener("click", e => {
         e.preventDefault();
         loginForm.classList.remove("form-hidden");
         createAccountForm.classList.add("form-hidden");
     });
 
     loginForm.addEventListener("submit", e => {
-
         e.preventDefault();
-        // user logic and if is correct, naviagte to home
-        window.location.href = './game.html'; //one level up
-        //setFormMessage(loginForm, "error", "Invalid username/password combination");
+        var user = window.localStorage.getItem('user');
+        var email = window.localStorage.getItem('email');
+        var password = window.localStorage.getItem('password');
+
+        if (user && email && password) {
+
+            var formUsername = loginUsername.value.trim();
+            var formPassword = loginPassword.value.trim();
+
+            // Check username
+            if (user === formUsername || email === formUsername) {
+                // Check password
+                if (password === formPassword) {
+                    window.location.href = './game.html';
+                }
+            }
+        }
+        setFormMessage(loginForm, "error", "Invalid username/password combination");
     });
 
     createAccountForm.addEventListener("submit", e => {
-
         e.preventDefault();
-        // save new user data and naviagete to home
-        window.location.href = './game.html'; //one level up
+
+        window.localStorage.setItem('user', signupUsername.value.trim());
+        window.localStorage.setItem('email', signupEmail.value.trim());
+        window.localStorage.setItem('password', signupPassword.value.trim());
+        window.location.href = './game.html';
+
     });
 
-
+    // Prevent errors
     document.querySelectorAll(".form-input").forEach(inputElement => {
         inputElement.addEventListener("blur", e => {
             // Username must have 5 or more characters
