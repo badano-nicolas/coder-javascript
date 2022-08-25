@@ -29,6 +29,20 @@ function clearInputError(inputElement) {
     inputElement.parentElement.querySelector(".form-input-error-message").textContent = "";
 }
 
+function showErrorToast(message) {
+    Toastify({
+        text: message,
+        duration: 3000,
+        newWindow: true,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "red",
+        }
+    }).showToast();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     linkCreateAccount.addEventListener("click", e => {
@@ -56,13 +70,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Check username
             if (user === formUsername || email === formUsername) {
+
                 // Check password
                 if (password === formPassword) {
                     window.location.href = './game.html';
                 }
+                else {
+                    showErrorToast("Usuario o contraseña incorrectos")
+                    setFormMessage(loginForm, "error", "Usuario o contraseña incorrectos");
+                }
+            }
+            else {
+                showErrorToast("Usuario o contraseña incorrectos")
+                setFormMessage(loginForm, "error", "Usuario o contraseña incorrectos");
             }
         }
-        setFormMessage(loginForm, "error", "Invalid username/password combination");
+        else {
+            showErrorToast("Usuario o contraseña incorrectos")
+            setFormMessage(loginForm, "error", "Usuario o contraseña incorrectos");
+        }
+
     });
 
     createAccountForm.addEventListener("submit", e => {
