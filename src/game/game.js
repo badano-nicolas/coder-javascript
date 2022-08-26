@@ -5,38 +5,22 @@ canvas.width = 1024;
 canvas.height = 576;
 
 const collisionsMap = [];
-
-// parse collision in rows of 70 columns
-for (let i = 0; i < collisions.length; i += 70) {
-    collisionsMap.push(collisions.slice(i, 70 + i));
-}
-
 const boudaries = [];
+//const collisions = [];
 
 const offset = {
-    x: -565,
-    y: -178
+    x: -564,
+    y: -180
 }
 
-collisionsMap.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-        // 1025 is the value when there is a boundary
-        if (symbol === 1025) {
-            boudaries.push(new Boundary({
-                position: {
-                    x: j * Boundary.width + offset.x,
-                    y: i * Boundary.height + offset.y
-                }
-            }))
-        }
-    })
-})
+//readMapJson();
+parseCollision();
 
 canvasContext.fillStyle = 'white';
 canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
 const mapImage = new Image();
-mapImage.src = './assets/img/towns/town-0.png';
+mapImage.src = './assets/img/towns/town-01.png';
 
 const playerImageUp = new Image();
 playerImageUp.src = './assets/img/chars/main/up.png'
@@ -95,6 +79,29 @@ const keys = {
 // Creted this variable to simplify later, used spread to use a single array
 const movables = [background, ...boudaries]
 
+function parseCollision() {
+    // parse collision in rows of 70 columns
+    for (let i = 0; i < collisions.length; i += 70) {
+        collisionsMap.push(collisions.slice(i, 70 + i));
+    }
+
+    console.log("collisionsMap", collisionsMap)
+    collisionsMap.forEach((row, i) => {
+        row.forEach((symbol, j) => {
+            // 1025 is the value when there is a boundary
+            if (symbol === 1025) {
+                boudaries.push(new Boundary({
+                    position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y
+                    }
+                }))
+            }
+        })
+        console.log(boudaries)
+    })
+}
+
 function rectangularCollision({ rectangle1, rectangle2: rectangle2 }) {
     return (
         rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
@@ -103,6 +110,19 @@ function rectangularCollision({ rectangle1, rectangle2: rectangle2 }) {
         rectangle1.position.y <= rectangle2.position.y + rectangle2.height
     )
 };
+
+function readMapJson() {
+    fetch('../../assets/data/map-01.json').then(response => {
+        return response.json();
+    }).then(data => {
+        const collisionLayer = data.layers.find(layer => layer.name === "Collision");
+        Array.prototype.push.apply(collisions, collisionLayer.data);
+        parseCollision();
+
+    }).catch(error => {
+        // Do something with the error
+    })
+}
 
 function animate() {
     window.requestAnimationFrame(animate);
