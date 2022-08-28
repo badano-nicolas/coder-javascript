@@ -6,15 +6,13 @@ canvas.height = 576;
 
 const collisionsMap = [];
 const boudaries = [];
-//const collisions = [];
 
 const offset = {
     x: -564,
     y: -180
 }
 
-//readMapJson();
-parseCollision();
+readMapJson();
 
 canvasContext.fillStyle = 'white';
 canvasContext.fillRect(0, 0, canvas.width, canvas.height);
@@ -76,16 +74,13 @@ const keys = {
     }
 }
 
-// Creted this variable to simplify later, used spread to use a single array
-const movables = [background, ...boudaries]
 
-function parseCollision() {
+
+function parseCollision(colli) {
     // parse collision in rows of 70 columns
-    for (let i = 0; i < collisions.length; i += 70) {
-        collisionsMap.push(collisions.slice(i, 70 + i));
+    for (let i = 0; i < colli.length; i += 70) {
+        collisionsMap.push(colli.slice(i, 70 + i));
     }
-
-    console.log("collisionsMap", collisionsMap)
     collisionsMap.forEach((row, i) => {
         row.forEach((symbol, j) => {
             // 1025 is the value when there is a boundary
@@ -98,8 +93,8 @@ function parseCollision() {
                 }))
             }
         })
-        console.log(boudaries)
     })
+
 }
 
 function rectangularCollision({ rectangle1, rectangle2: rectangle2 }) {
@@ -116,8 +111,9 @@ function readMapJson() {
         return response.json();
     }).then(data => {
         const collisionLayer = data.layers.find(layer => layer.name === "Collision");
-        Array.prototype.push.apply(collisions, collisionLayer.data);
-        parseCollision();
+        const colli = [];
+        Array.prototype.push.apply(colli, collisionLayer.data);
+        parseCollision(colli);
 
     }).catch(error => {
         // Do something with the error
@@ -125,6 +121,9 @@ function readMapJson() {
 }
 
 function animate() {
+    // Creted this variable to simplify later, used spread to use a single array
+    const movables = [background, ...boudaries]
+
     window.requestAnimationFrame(animate);
 
     background.draw();
