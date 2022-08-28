@@ -20,6 +20,9 @@ canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 const mapImage = new Image();
 mapImage.src = './assets/img/towns/town-01.png';
 
+const foregroundImage = new Image();
+foregroundImage.src = './assets/img/towns/town-01-foreground.png';
+
 const playerImageUp = new Image();
 playerImageUp.src = './assets/img/chars/main/up.png'
 
@@ -57,7 +60,15 @@ const background = new Sprite({
         y: offset.y
     },
     image: mapImage
-})
+});
+
+const foreground = new Sprite({
+    position: {
+        x: offset.x,
+        y: offset.y
+    },
+    image: foregroundImage
+});
 
 const keys = {
     w: {
@@ -122,7 +133,7 @@ function readMapJson() {
 
 function animate() {
     // Creted this variable to simplify later, used spread to use a single array
-    const movables = [background, ...boudaries]
+    const movables = [background, ...boudaries, foreground]
 
     window.requestAnimationFrame(animate);
 
@@ -141,7 +152,7 @@ function animate() {
     });
 
     player.draw();
-
+    foreground.draw();
 
 
     let moving = true;
