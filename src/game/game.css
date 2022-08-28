@@ -40,27 +40,38 @@ body {
   position: absolute;
 }
 
-.main-container .canvas-container .enemy-menu-container {
+.main-container .canvas-container .monster-info-container {
   background-color: white;
   width: 250px;
   border: 4px black solid;
   padding: 12px;
   position: absolute;
+}
+
+.main-container .canvas-container .monster-info-container.enemy-container {
   left: 50px;
   top: 50px;
 }
 
-.main-container .canvas-container .enemy-menu-container h4 {
+.main-container .canvas-container .monster-info-container.ally-container {
+  right: 50px;
+  bottom: 150px;
+}
+
+.main-container .canvas-container .monster-info-container h4 {
   font-size: 16px;
 }
 
-.main-container .canvas-container .enemy-menu-container .health-bar-container {
+.main-container
+  .canvas-container
+  .monster-info-container
+  .health-bar-container {
   position: relative;
 }
 
 .main-container
   .canvas-container
-  .enemy-menu-container
+  .monster-info-container
   .health-bar-container
   .health-bar-empty {
   height: 5px;
@@ -70,7 +81,7 @@ body {
 
 .main-container
   .canvas-container
-  .enemy-menu-container
+  .monster-info-container
   .health-bar-container
   .health-bar-full {
   height: 5px;
