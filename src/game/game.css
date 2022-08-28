@@ -1,0 +1,39 @@
+body {
+  background-color: #525252;
+}
+.header {
+  background: #313131;
+  color: #ca3e47;
+  padding: 0.5rem 0;
+}
+.header .nav-container .navigation .container-fluid .navbar-nav a {
+  color: #ca3e47;
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.main-container {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  padding: 4rem 8rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-height: 66vh;
+  background-color: #414141;
+}
+
+.main-container h5 {
+  color: #ca3e47;
+}
+
+.main-container .canvas-container {
+  position: relative;
+}
+
+.footer {
+  width: 100%;
+  background-color: #313131;
+  color: #ca3e47;
+  text-align: center;
+  height: 60px;
+}

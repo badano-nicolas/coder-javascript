@@ -137,6 +137,8 @@ function rectangularCollision({ rectangle1, rectangle2: rectangle2 }) {
     )
 };
 
+
+
 function readMapJson() {
     fetch('../../assets/data/map-01.json').then(response => {
         return response.json();
@@ -156,7 +158,9 @@ function readMapJson() {
 function animate() {
     // Creted this variable to simplify later, used spread to use a single array
     const movables = [background, ...boudaries, foreground, ...battleGrounds]
-
+    const battle = {
+        initiated: false
+    }
     window.requestAnimationFrame(animate);
 
     background.draw();
@@ -179,9 +183,11 @@ function animate() {
     player.draw();
     foreground.draw();
 
-
     let moving = true;
     player.moving = false;
+
+    if (battle.initiated) return;
+
 
     // Battle
     if (keys.w.pressed || keys.d.pressed || keys.s.pressed || keys.a.pressed) {
