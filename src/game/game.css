@@ -1,6 +1,6 @@
 body {
   background-color: #525252;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
 }
 .header {
   background: #313131;
@@ -40,6 +40,47 @@ body {
   position: absolute;
 }
 
+.main-container .canvas-container .enemy-menu-container {
+  background-color: white;
+  width: 250px;
+  border: 4px black solid;
+  padding: 12px;
+  position: absolute;
+  left: 50px;
+  top: 50px;
+}
+
+.main-container .canvas-container .enemy-menu-container h4 {
+  font-size: 16px;
+}
+
+.main-container .canvas-container .enemy-menu-container .health-bar-container {
+  position: relative;
+}
+
+.main-container
+  .canvas-container
+  .enemy-menu-container
+  .health-bar-container
+  .health-bar-empty {
+  height: 5px;
+  background-color: #ccc;
+  margin-top: 10px;
+}
+
+.main-container
+  .canvas-container
+  .enemy-menu-container
+  .health-bar-container
+  .health-bar-full {
+  height: 5px;
+  background-color: green;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
 .main-container .canvas-container .battle-interface-container {
   background-color: white;
   height: 130px;
@@ -63,15 +104,17 @@ body {
 .main-container
   .canvas-container
   .battle-interface-container
-  .attacks-container button {
-    border: 0;
-    font-size: 16px;
+  .attacks-container
+  button {
+  border: 0;
+  font-size: 16px;
 }
 .main-container
   .canvas-container
   .battle-interface-container
-  .attacks-container button:hover {
-    background-color: #ddd;
+  .attacks-container
+  button:hover {
+  background-color: #ddd;
 }
 
 .main-container
@@ -95,8 +138,8 @@ body {
   font-size: 16px;
 }
 
-.main-container .controls-container h5{
-    padding-top: 2rem;
+.main-container .controls-container h5 {
+  padding-top: 2rem;
 }
 
 .footer {
@@ -107,6 +150,6 @@ body {
 }
 
 .footer .footer-container {
-    padding-top: 2rem;
-    height: 100px;
+  padding-top: 2rem;
+  height: 100px;
 }
