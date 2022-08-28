@@ -40,6 +40,12 @@ playerImageLeft.src = './assets/img/chars/main/left.png'
 const battleBackgroundImage = new Image();
 battleBackgroundImage.src = './assets/img/battle-background.png'
 
+const allySpriteImage = new Image();
+allySpriteImage.src = './assets/img/ally-sprite.png'
+
+const enemySpriteImage = new Image();
+enemySpriteImage.src = './assets/img/enemy-sprite.png'
+
 const player = new Sprite({
     position: {
         // 192 is the width of the player image, can't wait to load the image to obtain
@@ -372,9 +378,27 @@ const battleBackground = new Sprite({
     image: battleBackgroundImage
 });
 
+const enemy = new Sprite({
+    position: {
+        x: 800,
+        y: 100,
+    },
+    image: enemySpriteImage
+});
+
+const ally = new Sprite({
+    position: {
+        x: 280,
+        y: 325,
+    },
+    image: allySpriteImage
+});
+
 function animateBattle() {
     window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
+    enemy.draw();
+    ally.draw();
 }
 
 let lastKey = '';
