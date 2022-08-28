@@ -37,6 +37,9 @@ playerImageDown.src = './assets/img/chars/main/down.png'
 const playerImageLeft = new Image();
 playerImageLeft.src = './assets/img/chars/main/left.png'
 
+const battleBackgroundImage = new Image();
+battleBackgroundImage.src = './assets/img/battle-background.png'
+
 const player = new Sprite({
     position: {
         // 192 is the width of the player image, can't wait to load the image to obtain
@@ -161,7 +164,8 @@ function animate() {
     const battle = {
         initiated: false
     }
-    window.requestAnimationFrame(animate);
+
+    const animationId = window.requestAnimationFrame(animate);
 
     background.draw();
     boudaries.forEach((boundary) => {
@@ -209,12 +213,28 @@ function animate() {
                 overlappingArea > (player.width * player.height) / 2 // to dont triger when the area is little
                 && Math.random() < 0.015
             ) {
-                console.log("Battle should start")
+                // cancel current animation loop
+                window.cancelAnimationFrame(animationId);
+                battle.initiated = true;
                 gsap.to('#overLappingContainer', {
                     opacity: 1,
                     repeat: 3,
                     yoyo: true,
-                    duration: 0.4
+                    duration: 0.4,
+                    onComplete() {
+                        gsap.to('#overLappingContainer', {
+                            opacity: 1,
+                            duration: 0.4,
+                            onComplete() {
+                                animateBattle();
+                                gsap.to('#overLappingContainer', {
+                                    opacity: 0,
+                                    duration: 0.4,
+                                });
+                            }
+                        });
+
+                    }
                 });
                 break;
             }
@@ -343,6 +363,19 @@ function animate() {
 }
 
 animate();
+
+const battleBackground = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    image: battleBackgroundImage
+});
+
+function animateBattle() {
+    window.requestAnimationFrame(animateBattle);
+    battleBackground.draw();
+}
 
 let lastKey = '';
 
