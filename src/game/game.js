@@ -5,7 +5,9 @@ canvas.width = 1024;
 canvas.height = 576;
 
 const collisionsMap = [];
+const battleGroundMap = [];
 const boudaries = [];
+const battleGrounds = [];
 
 const offset = {
     x: -564,
@@ -87,7 +89,7 @@ const keys = {
 
 
 
-function parseCollision(colli) {
+function parseCollision(colli, battle) {
     // parse collision in rows of 70 columns
     for (let i = 0; i < colli.length; i += 70) {
         collisionsMap.push(colli.slice(i, 70 + i));
@@ -104,9 +106,27 @@ function parseCollision(colli) {
                 }))
             }
         })
-    })
+    });
 
+    for (let i = 0; i < battle.length; i += 70) {
+        battleGroundMap.push(battle.slice(i, 70 + i));
+    }
+    battleGroundMap.forEach((row, i) => {
+        row.forEach((symbol, j) => {
+            // 1025 is the value when there is a boundary
+            if (symbol === 1025) {
+                battleGrounds.push(new Boundary({
+                    position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y
+                    }
+                }))
+            }
+        })
+    });
 }
+
+
 
 function rectangularCollision({ rectangle1, rectangle2: rectangle2 }) {
     return (
@@ -122,9 +142,11 @@ function readMapJson() {
         return response.json();
     }).then(data => {
         const collisionLayer = data.layers.find(layer => layer.name === "Collision");
-        const colli = [];
-        Array.prototype.push.apply(colli, collisionLayer.data);
-        parseCollision(colli);
+        const battleGroundLayer = data.layers.find(layer => layer.name === "BattleGround");
+        const colli = collisionLayer.data;
+        const battle = battleGroundLayer.data;
+
+        parseCollision(colli, battle);
 
     }).catch(error => {
         // Do something with the error
@@ -133,7 +155,7 @@ function readMapJson() {
 
 function animate() {
     // Creted this variable to simplify later, used spread to use a single array
-    const movables = [background, ...boudaries, foreground]
+    const movables = [background, ...boudaries, foreground, ...battleGrounds]
 
     window.requestAnimationFrame(animate);
 
@@ -150,6 +172,9 @@ function animate() {
             console.log('colliding')
         }
     });
+    battleGrounds.forEach((battleGround) => {
+        battleGround.draw();
+    });
 
     player.draw();
     foreground.draw();
@@ -157,6 +182,32 @@ function animate() {
 
     let moving = true;
     player.moving = false;
+
+    // Battle
+    if (keys.w.pressed || keys.d.pressed || keys.s.pressed || keys.a.pressed) {
+        for (let i = 0; i < battleGrounds.length; i++) {
+            const battleGround = battleGrounds[i];
+            const overlappingArea = (
+                Math.min(player.position.x + player.width, battleGround.position.x + battleGround.width) -
+                Math.max(player.position.x, battleGround.position.x)
+            ) * (
+                    Math.min(player.position.y + player.height, battleGround.position.y + battleGround.height) -
+                    Math.max(player.position.y, battleGround.position.y)
+                );
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    // creates clone of boundary without changing originall obj
+                    rectangle2: battleGround
+                }) &&
+                overlappingArea > (player.width * player.height) / 2 // to dont triger when the area is little
+                && Math.random() < 0.015
+            ) {
+                console.log("Battle should start")
+                break;
+            }
+        }
+    }
 
     if (keys.w.pressed && lastKey === 'w') {
 
