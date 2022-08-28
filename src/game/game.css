@@ -1,5 +1,6 @@
 body {
   background-color: #525252;
+  font-family: 'Press Start 2P', cursive;
 }
 .header {
   background: #313131;
@@ -15,7 +16,7 @@ body {
 .main-container {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  padding: 4rem 8rem;
+  padding: 2rem 4rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
   min-height: 66vh;
@@ -28,6 +29,7 @@ body {
 
 .main-container .canvas-container {
   position: relative;
+  width: 1026px;
 }
 
 .main-container .canvas-container .over-lapping-container {
@@ -36,6 +38,61 @@ body {
   height: 576px;
   opacity: 0;
   position: absolute;
+}
+
+.main-container .canvas-container .battle-interface-container {
+  background-color: white;
+  height: 130px;
+  position: absolute;
+  border: 4px black solid;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+}
+
+.main-container
+  .canvas-container
+  .battle-interface-container
+  .attacks-container {
+  width: 66.66%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.main-container
+  .canvas-container
+  .battle-interface-container
+  .attacks-container button {
+    border: 0;
+    font-size: 16px;
+}
+.main-container
+  .canvas-container
+  .battle-interface-container
+  .attacks-container button:hover {
+    background-color: #ddd;
+}
+
+.main-container
+  .canvas-container
+  .battle-interface-container
+  .attack-info-container {
+  width: 33.33%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 4px black solid;
+}
+
+.main-container
+  .canvas-container
+  .battle-interface-container
+  .attack-info-container
+  h1 {
+  margin: 0;
+  font-size: 16px;
 }
 
 .footer {
