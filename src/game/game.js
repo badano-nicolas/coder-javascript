@@ -210,6 +210,12 @@ function animate() {
                 && Math.random() < 0.015
             ) {
                 console.log("Battle should start")
+                gsap.to('#overLappingContainer', {
+                    opacity: 1,
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4
+                });
                 break;
             }
         }

@@ -30,6 +30,14 @@ body {
   position: relative;
 }
 
+.main-container .canvas-container .over-lapping-container {
+  background-color: black;
+  width: 1024px;
+  height: 576px;
+  opacity: 0;
+  position: absolute;
+}
+
 .footer {
   width: 100%;
   background-color: #313131;
