@@ -13,4 +13,7 @@ https://pixel-boy.itch.io/ninja-adventure-asset-pack
 Used GSAP library to animate battle secuense.
 https://cdnjs.com/libraries/gsap
 
+Google Font used:
+https://fonts.google.com/specimen/Press+Start+2P?query=pres#styles
+
 
