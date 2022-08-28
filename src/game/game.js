@@ -55,7 +55,8 @@ const player = new Sprite({
     },
     image: playerImageDown,
     frames: {
-        max: 4
+        max: 4,
+        hold: 10
     },
     sprites: {
         up: playerImageUp,
@@ -385,7 +386,8 @@ const enemy = new Sprite({
     },
     image: enemySpriteImage,
     frames: {
-        max: 4
+        max: 4,
+        hold: 35
     },
     animate: true
 });
@@ -397,7 +399,8 @@ const ally = new Sprite({
     },
     image: allySpriteImage,
     frames: {
-        max: 4
+        max: 4,
+        hold: 35
     },
     animate: true
 });
