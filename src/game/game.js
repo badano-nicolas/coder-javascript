@@ -389,7 +389,8 @@ const enemy = new Sprite({
         max: 4,
         hold: 35
     },
-    animate: true
+    animate: true,
+    isEnemy: true
 });
 
 const ally = new Sprite({
@@ -415,13 +416,13 @@ function animateBattle() {
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', () => {
         console.log('clicked')
-        ally.attack({
+        enemy.attack({
             attack: {
                 name: "Cabezaso",
                 damage: 10,
                 type: 'Normal'
             },
-            recipient: enemy
+            recipient: ally
         });
     });
 });
