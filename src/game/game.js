@@ -416,13 +416,13 @@ function animateBattle() {
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', () => {
         console.log('clicked')
-        enemy.attack({
+        ally.attack({
             attack: {
                 name: "Cabezaso",
                 damage: 10,
                 type: 'Normal'
             },
-            recipient: ally
+            recipient: enemy
         });
     });
 });
