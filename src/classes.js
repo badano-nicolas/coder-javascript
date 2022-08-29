@@ -1,5 +1,14 @@
 class Sprite {
-    constructor({ position, velocity, image, frames = { max: 1, hold: 10 }, sprites = [], animate = false, isEnemy = false }) {
+    constructor({
+        position,
+        velocity,
+        image,
+        frames = { max: 1, hold: 10 },
+        sprites = [],
+        animate = false,
+        isEnemy = false,
+        rotation = 0
+    }) {
         this.position = position;
         this.image = image;
         this.frames = { ...frames, val: 0, elapsed: 0 };
@@ -12,12 +21,22 @@ class Sprite {
         this.sprites = sprites;
         this.opacity = 1;
         this.health = 100;
-        this.isEnemy = isEnemy
+        this.isEnemy = isEnemy;
+        this.rotation = rotation;
 
     }
 
     draw() {
         canvasContext.save();
+        canvasContext.translate(
+            this.position.x + this.width / 2,
+            this.position.y + this.height / 2
+        );
+        canvasContext.rotate(this.rotation);
+        canvasContext.translate(
+            -this.position.x - this.width / 2,
+            -this.position.y - this.height / 2
+        );
         canvasContext.globalAlpha = this.opacity;
         canvasContext.drawImage(
             this.image,
@@ -51,15 +70,16 @@ class Sprite {
     }
     attack({ attack, recipient, renderedSprites }) {
         const timeLine = gsap.timeline();
-        this.health -= attack.damage;
         let movementDistance = 20;
         let healthBar = '#enemy-health-bar';
+        let rotation = 1;
+        this.health -= attack.damage;
+
         if (this.isEnemy) {
             movementDistance = -20;
             healthBar = '#ally-health-bar';
+            rotation = -2.5;
         }
-
-        console.log(attack.name)
         switch (attack.name) {
             case 'tackle':
                 timeLine.to(this.position, {
@@ -88,17 +108,21 @@ class Sprite {
                         max: 4,
                         hold: 10
                     },
-                    animate: true
+                    animate: true,
+                    // rotation               // not working for some reason
                 });
 
-                renderedSprites.push(fireball);
+                // refactor to improve animation over enemy;
+                renderedSprites.splice(1, 0, fireball);
 
                 gsap.to(fireball.position, {
                     x: recipient.position.x,
                     y: recipient.position.y,
                     onComplete: () => {
                         damageAnimation(this.health);
-                        renderedSprites.pop();
+
+                        // remove the same animation that was added before
+                        renderedSprites.splice(1, 1);
                     }
                 })
 

@@ -407,12 +407,10 @@ const ally = new Sprite({
     animate: true
 });
 
-const renderedSprites = [];
+const renderedSprites = [enemy, ally];
 function animateBattle() {
     window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
-    enemy.draw();
-    ally.draw();
 
     renderedSprites.forEach(sprite => {
         sprite.draw();
