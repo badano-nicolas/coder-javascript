@@ -49,7 +49,7 @@ class Sprite {
             }
         }
     }
-    attack({ attack, recipient }) {
+    attack({ attack, recipient, renderedSprites }) {
         const timeLine = gsap.timeline();
         this.health -= attack.damage;
         let movementDistance = 20;
@@ -59,32 +59,73 @@ class Sprite {
             healthBar = '#ally-health-bar';
         }
 
+        console.log(attack.name)
+        switch (attack.name) {
+            case 'tackle':
+                timeLine.to(this.position, {
+                    x: this.position.x - movementDistance
+                }).to(this.position, {
+                    x: this.position.x + movementDistance * 2,
+                    duration: 0.1,
+                    onComplete: () => {
+                        damageAnimation(this.health);
+                    }
+                }).to(this.position, {
+                    x: this.position.x - 20
+                });
 
-        timeLine.to(this.position, {
-            x: this.position.x - movementDistance
-        }).to(this.position, {
-            x: this.position.x + movementDistance * 2,
-            duration: 0.1,
-            onComplete: () => {
-                gsap.to(healthBar, {
-                    width: this.health + '%'
+                break;
+            case 'fireball':
+                const fireballImage = new Image();
+                fireballImage.src = './assets/img/attacks/fireball.png'
+                const fireball = new Sprite({
+                    position: {
+                        x: this.position.x,
+                        y: this.position.y
+                    },
+                    image: fireballImage,
+                    frames: {
+                        max: 4,
+                        hold: 10
+                    },
+                    animate: true
                 });
-                gsap.to(recipient.position, {
-                    x: recipient.position.x + 10,
-                    yoyo: true,
-                    repeat: 5,
-                    duration: 0.07
-                });
-                gsap.to(recipient, {
-                    opacity: 0,
-                    repeat: 5,
-                    yoyo: true,
-                    duration: 0.07
-                });
-            }
-        }).to(this.position, {
-            x: this.position.x - 20
-        });
+
+                renderedSprites.push(fireball);
+
+                gsap.to(fireball.position, {
+                    x: recipient.position.x,
+                    y: recipient.position.y,
+                    onComplete: () => {
+                        damageAnimation(this.health);
+                        renderedSprites.pop();
+                    }
+                })
+
+                break;
+            default:
+                break;
+        }
+
+        function damageAnimation(health) {
+            gsap.to(healthBar, {
+                width: health + '%'
+            });
+            gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.07
+            });
+            gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.07
+            });
+        }
+
+
 
     }
 }

@@ -46,6 +46,7 @@ allySpriteImage.src = './assets/img/ally-sprite.png'
 const enemySpriteImage = new Image();
 enemySpriteImage.src = './assets/img/enemy-sprite.png'
 
+
 const player = new Sprite({
     position: {
         // 192 is the width of the player image, can't wait to load the image to obtain
@@ -406,18 +407,25 @@ const ally = new Sprite({
     animate: true
 });
 
+const renderedSprites = [];
 function animateBattle() {
     window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
     enemy.draw();
     ally.draw();
+
+    renderedSprites.forEach(sprite => {
+        sprite.draw();
+    });
 }
 
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (event) => {
+        const selectedAttack = attacks[event.path[0].id];
         ally.attack({
-            attack: attacks[event.path[0].id],
-            recipient: enemy
+            attack: selectedAttack,
+            recipient: enemy,
+            renderedSprites
         });
     });
 });
