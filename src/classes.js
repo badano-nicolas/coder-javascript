@@ -43,6 +43,17 @@ class Sprite {
             }
         }
     }
+    attack({ attack, recipient }) {
+        const timeLine = gsap.timeline();
+        timeLine.to(this.position, {
+            x: this.position.x - 20
+        }).to(this.position, {
+            x: this.position.x + 40
+        }).to(this.position, {
+            x: this.position.x - 20
+        });
+
+    }
 }
 
 class Boundary {
