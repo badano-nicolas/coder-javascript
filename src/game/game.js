@@ -414,14 +414,9 @@ function animateBattle() {
 }
 
 document.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log('clicked')
+    button.addEventListener('click', (event) => {
         ally.attack({
-            attack: {
-                name: "Cabezaso",
-                damage: 10,
-                type: 'Normal'
-            },
+            attack: attacks[event.path[0].id],
             recipient: enemy
         });
     });
