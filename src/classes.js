@@ -10,10 +10,13 @@ class Sprite {
         };
         this.animate = animate;
         this.sprites = sprites;
+        this.opacity = 1;
 
     }
 
     draw() {
+        canvasContext.save();
+        canvasContext.globalAlpha = this.opacity;
         canvasContext.drawImage(
             this.image,
             this.frames.val * this.width,
@@ -24,7 +27,8 @@ class Sprite {
             this.position.y,
             this.image.width / this.frames.max,
             this.image.height
-        )
+        );
+        canvasContext.restore;
 
 
         if (!this.animate) return
@@ -48,7 +52,22 @@ class Sprite {
         timeLine.to(this.position, {
             x: this.position.x - 20
         }).to(this.position, {
-            x: this.position.x + 40
+            x: this.position.x + 40,
+            duration: 0.1,
+            onComplete() {
+                gsap.to(recipient.position, {
+                    x: recipient.position.x + 10,
+                    yoyo: true,
+                    repeat: 5,
+                    duration: 0.07
+                });
+                gsap.to(recipient, {
+                    opacity: 0,
+                    repeat: 5,
+                    yoyo: true,
+                    duration: 0.07
+                });
+            }
         }).to(this.position, {
             x: this.position.x - 20
         });
