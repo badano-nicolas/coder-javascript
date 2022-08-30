@@ -34,10 +34,13 @@ const ally = new Sprite({
     animate: true,
     name: 'Nico'
 });
-
 const renderedSprites = [enemy, ally];
+
+
+let battleAnimationId;
+
 function animateBattle() {
-    window.requestAnimationFrame(animateBattle);
+    battleAnimationId = window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
 
     renderedSprites.forEach(sprite => {
@@ -59,6 +62,20 @@ document.querySelectorAll('button').forEach((button) => {
         if (enemy.health <= 0) {
             queue.push(() => {
                 enemy.faint();
+            });
+            queue.push(() => {
+                // battle ends
+                gsap.to('#overLappingContainer', {
+                    opacity: 1,
+                    onComplete: () => {
+                        cancelAnimationFrame(battleAnimationId);
+                        animate();
+                        document.querySelector('#userInterface').style.display = 'none';
+                        gsap.to('#overLappingContainer', {
+                            opacity: 0
+                        });
+                    }
+                });
             });
             return;
         }

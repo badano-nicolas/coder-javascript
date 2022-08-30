@@ -39,31 +39,35 @@
     <main class="container main-container">
         <div class="canvas-container">
             <div class="over-lapping-container" id="overLappingContainer"></div>
-            <div class="monster-info-container enemy-container">
-                <h4>Coder House</h4>
-                <div class="health-bar-container">
-                    <div class="health-bar-empty"></div>
-                    <div class="health-bar-full" id="enemy-health-bar"></div>
-                </div>
-            </div>
-            <div class="monster-info-container ally-container">
-                <h4>Nico</h4>
-                <div class="health-bar-container">
-                    <div class="health-bar-empty"></div>
-                    <div class="health-bar-full" id="ally-health-bar"></div>
-                </div>
-            </div>
+
             <canvas></canvas>
-            <div class="battle-interface-container">
-                <div class="dialog-container" id="battleDialog"></div>
-                <div class="attacks-container">
-                    <button id="Tackle">Placaje</button>
-                    <button id="Fireball">Bola de Fuego</button>
+            <div id="userInterface">
+                <div class="monster-info-container enemy-container">
+                    <h4>Coder House</h4>
+                    <div class="health-bar-container">
+                        <div class="health-bar-empty"></div>
+                        <div class="health-bar-full" id="enemy-health-bar"></div>
+                    </div>
                 </div>
-                <div class="attack-info-container">
-                    <h1>Attack Type</h1>
+                <div class="monster-info-container ally-container">
+                    <h4>Nico</h4>
+                    <div class="health-bar-container">
+                        <div class="health-bar-empty"></div>
+                        <div class="health-bar-full" id="ally-health-bar"></div>
+                    </div>
+                </div>
+                <div class="battle-interface-container">
+                    <div class="dialog-container" id="battleDialog"></div>
+                    <div class="attacks-container">
+                        <button id="Tackle">Placaje</button>
+                        <button id="Fireball">Bola de Fuego</button>
+                    </div>
+                    <div class="attack-info-container">
+                        <h1>Attack Type</h1>
+                    </div>
                 </div>
             </div>
+
         </div>
         <div class="controls-container">
             <h5>Controles: W - D - S - A - Mouse</h5>

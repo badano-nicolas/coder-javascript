@@ -38,6 +38,7 @@ body {
   height: 576px;
   opacity: 0;
   position: absolute;
+  
 }
 
 .main-container .canvas-container .monster-info-container {
