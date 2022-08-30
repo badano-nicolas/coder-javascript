@@ -38,10 +38,18 @@ body {
   height: 576px;
   opacity: 0;
   position: absolute;
-  
 }
 
-.main-container .canvas-container .monster-info-container {
+.main-container
+  .canvas-container
+  .user-interface-container {
+    display: none;
+  }
+
+.main-container
+  .canvas-container
+  .user-interface-container
+  .monster-info-container {
   background-color: white;
   width: 250px;
   border: 4px black solid;
@@ -49,22 +57,33 @@ body {
   position: absolute;
 }
 
-.main-container .canvas-container .monster-info-container.enemy-container {
+.main-container
+  .canvas-container
+  .user-interface-container
+  .monster-info-container.enemy-container {
   left: 50px;
   top: 50px;
 }
 
-.main-container .canvas-container .monster-info-container.ally-container {
+.main-container
+  .canvas-container
+  .user-interface-container
+  .monster-info-container.ally-container {
   right: 50px;
   bottom: 150px;
 }
 
-.main-container .canvas-container .monster-info-container h4 {
+.main-container
+  .canvas-container
+  .user-interface-container
+  .monster-info-container
+  h4 {
   font-size: 16px;
 }
 
 .main-container
   .canvas-container
+  .user-interface-container
   .monster-info-container
   .health-bar-container {
   position: relative;
@@ -72,6 +91,7 @@ body {
 
 .main-container
   .canvas-container
+  .user-interface-container
   .monster-info-container
   .health-bar-container
   .health-bar-empty {
@@ -82,6 +102,7 @@ body {
 
 .main-container
   .canvas-container
+  .user-interface-container
   .monster-info-container
   .health-bar-container
   .health-bar-full {
@@ -93,7 +114,7 @@ body {
   left: 0;
 }
 
-.main-container .canvas-container .battle-interface-container {
+.main-container .canvas-container .user-interface-container .battle-interface-container {
   background-color: white;
   height: 130px;
   position: absolute;
@@ -106,6 +127,7 @@ body {
 
 .main-container
   .canvas-container
+  .user-interface-container
   .battle-interface-container
   .attacks-container {
   width: 66.66%;
@@ -115,6 +137,7 @@ body {
 
 .main-container
   .canvas-container
+  .user-interface-container
   .battle-interface-container
   .attacks-container
   button {
@@ -123,6 +146,7 @@ body {
 }
 .main-container
   .canvas-container
+  .user-interface-container
   .battle-interface-container
   .attacks-container
   button:hover {
@@ -131,6 +155,7 @@ body {
 
 .main-container
   .canvas-container
+  .user-interface-container
   .battle-interface-container
   .attack-info-container {
   width: 33.33%;
@@ -143,6 +168,7 @@ body {
 
 .main-container
   .canvas-container
+  .user-interface-container
   .battle-interface-container
   .attack-info-container
   h1 {
@@ -151,15 +177,15 @@ body {
 }
 
 .main-container .canvas-container .dialog-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: white;
-    padding: 12px;
-    display: none;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: white;
+  padding: 12px;
+  display: none;
+  cursor: pointer;
 }
 
 .main-container .controls-container h5 {

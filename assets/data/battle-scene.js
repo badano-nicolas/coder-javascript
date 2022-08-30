@@ -43,9 +43,11 @@ function animateBattle() {
     battleAnimationId = window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
 
+
     renderedSprites.forEach(sprite => {
         sprite.draw();
     });
+    document.querySelector('#userInterface').style.display = 'block';
 }
 
 const queue = [];
