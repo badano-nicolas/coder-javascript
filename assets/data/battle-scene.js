@@ -45,6 +45,8 @@ function animateBattle() {
     });
 }
 
+const queue = [];
+
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (event) => {
         const selectedAttack = attacks[event.path[0].id];
@@ -53,5 +55,38 @@ document.querySelectorAll('button').forEach((button) => {
             recipient: enemy,
             renderedSprites
         });
+
+        if (enemy.health <= 0) {
+            queue.push(() => {
+                enemy.faint();
+            });
+            return;
+        }
+
+        queue.push(() => {
+            enemy.attack({
+                attack: attacks.Tackle,
+                recipient: ally,
+                renderedSprites
+            });
+
+            if (ally.health <= 0) {
+                queue.push(() => {
+                    ally.faint();
+                });
+                return;
+            }
+        })
     });
 });
+
+document.querySelector('#battleDialog').addEventListener('click', (event) => {
+    if (queue.length > 0) {
+        queue[0]();
+        queue.shift();
+    }
+    else {
+        event.currentTarget.style.display = 'none';
+    }
+});
+

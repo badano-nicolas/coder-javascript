@@ -77,7 +77,7 @@ class Sprite {
         let movementDistance = 20;
         let healthBar = '#enemy-health-bar';
         let rotation = 1;
-        this.health -= attack.damage;
+        recipient.health -= attack.damage;
 
         if (this.isEnemy) {
             movementDistance = -20;
@@ -92,7 +92,7 @@ class Sprite {
                     x: this.position.x + movementDistance * 2,
                     duration: 0.1,
                     onComplete: () => {
-                        damageAnimation(this.health);
+                        damageAnimation(recipient.health);
                     }
                 }).to(this.position, {
                     x: this.position.x - 20
@@ -123,7 +123,7 @@ class Sprite {
                     x: recipient.position.x,
                     y: recipient.position.y,
                     onComplete: () => {
-                        damageAnimation(this.health);
+                        damageAnimation(recipient.health);
 
                         // remove the same animation that was added before
                         renderedSprites.splice(1, 1);
@@ -155,6 +155,15 @@ class Sprite {
 
 
 
+    }
+    faint() {
+        document.querySelector('#battleDialog').innerHTML = this.name + 'fue derrotado!!';
+        gsap.to(this.position, {
+            y: this.position.y + 20
+        }); 
+        gsap.to(this, {
+            opacity: 0
+        });
     }
 }
 
