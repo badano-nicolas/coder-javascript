@@ -149,6 +149,17 @@ body {
   font-size: 16px;
 }
 
+.main-container .canvas-container .dialog-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    padding: 12px;
+    display: none;
+}
+
 .main-container .controls-container h5 {
   padding-top: 2rem;
 }

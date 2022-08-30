@@ -69,6 +69,8 @@ class Sprite {
         }
     }
     attack({ attack, recipient, renderedSprites }) {
+        document.querySelector('#battleDialog').style.display = 'block';
+        document.querySelector('#battleDialog').innerHTML = 'hola'
         const timeLine = gsap.timeline();
         let movementDistance = 20;
         let healthBar = '#enemy-health-bar';
