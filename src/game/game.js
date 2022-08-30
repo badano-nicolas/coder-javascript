@@ -224,6 +224,9 @@ function animate() {
                 // cancel current animation loop
                 window.cancelAnimationFrame(animationId);
                 battle.initiated = true;
+
+
+
                 gsap.to('#overLappingContainer', {
                     opacity: 1,
                     repeat: 3,
@@ -235,6 +238,10 @@ function animate() {
                             duration: 0.4,
                             onComplete() {
                                 animateBattle();
+                                document.querySelector('#userInterface').style.display = 'block';
+                                document.querySelector('#battleDialog').style.display = 'none';
+                                document.querySelector('#allyHealthBar').style.widht = '100%';
+                                document.querySelector('#enemyHealthBar').style.width = '100%';
                                 gsap.to('#overLappingContainer', {
                                     opacity: 0,
                                     duration: 0.4,

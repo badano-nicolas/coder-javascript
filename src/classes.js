@@ -75,13 +75,13 @@ class Sprite {
         document.querySelector('#battleDialog').innerHTML = this.name + ' usó ' + attack.name;
         const timeLine = gsap.timeline();
         let movementDistance = 20;
-        let healthBar = '#enemy-health-bar';
+        let healthBar = '#enemyHealthBar';
         let rotation = 1;
         recipient.health -= attack.damage;
 
         if (this.isEnemy) {
             movementDistance = -20;
-            healthBar = '#ally-health-bar';
+            healthBar = '#allyHealthBar';
             rotation = -2.5;
         }
         switch (attack.name) {

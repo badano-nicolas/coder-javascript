@@ -47,7 +47,7 @@ function animateBattle() {
     renderedSprites.forEach(sprite => {
         sprite.draw();
     });
-    document.querySelector('#userInterface').style.display = 'block';
+
 }
 
 const queue = [];
