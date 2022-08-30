@@ -7,7 +7,8 @@ class Sprite {
         sprites = [],
         animate = false,
         isEnemy = false,
-        rotation = 0
+        rotation = 0,
+        name
     }) {
         this.position = position;
         this.image = image;
@@ -23,6 +24,7 @@ class Sprite {
         this.health = 100;
         this.isEnemy = isEnemy;
         this.rotation = rotation;
+        this.name = name;
 
     }
 
@@ -70,7 +72,7 @@ class Sprite {
     }
     attack({ attack, recipient, renderedSprites }) {
         document.querySelector('#battleDialog').style.display = 'block';
-        document.querySelector('#battleDialog').innerHTML = 'hola'
+        document.querySelector('#battleDialog').innerHTML = this.name + ' usó ' + attack.name;
         const timeLine = gsap.timeline();
         let movementDistance = 20;
         let healthBar = '#enemy-health-bar';
@@ -83,7 +85,7 @@ class Sprite {
             rotation = -2.5;
         }
         switch (attack.name) {
-            case 'tackle':
+            case 'Placaje':
                 timeLine.to(this.position, {
                     x: this.position.x - movementDistance
                 }).to(this.position, {
@@ -97,7 +99,7 @@ class Sprite {
                 });
 
                 break;
-            case 'fireball':
+            case 'Bola de Fuego':
                 const fireballImage = new Image();
                 fireballImage.src = './assets/img/attacks/fireball.png'
                 const fireball = new Sprite({

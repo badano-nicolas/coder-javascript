@@ -391,7 +391,8 @@ const enemy = new Sprite({
         hold: 35
     },
     animate: true,
-    isEnemy: true
+    isEnemy: true,
+    name: 'CoderHouse'
 });
 
 const ally = new Sprite({
@@ -404,7 +405,8 @@ const ally = new Sprite({
         max: 4,
         hold: 35
     },
-    animate: true
+    animate: true,
+    name: 'Nico'
 });
 
 const renderedSprites = [enemy, ally];
